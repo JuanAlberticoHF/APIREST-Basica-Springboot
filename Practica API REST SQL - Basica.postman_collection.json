@@ -1,0 +1,217 @@
+{
+  "info": {
+    "_postman_id": "ecdb9dc8-3cd6-4ed3-b14d-003a74c73bc2",
+    "name": "Practica API REST SQL - Basica",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42738843"
+  },
+  "item": [
+    {
+      "name": "Añadir una persona",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"DNI\": \"00000000B\",\r\n    \"nombre\": \"Noemi\",\r\n    \"apellidos\": \"Mi Esposa\",\r\n    \"edad\": 19,\r\n    \"fechaNacimiento\": \"2006-09-28\",\r\n    \"estaTrabajando\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/addPersona",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            "addPersona"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar una persona",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"DNI\": \"00000000D\",\r\n    \"nombre\": \"Juan Alberto\",\r\n    \"apellidos\": \"Hernandez Fernandez\",\r\n    \"edad\": 20,\r\n    \"fechaNacimiento\": \"2005-04-13\",\r\n    \"estaTrabajando\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener todas las personas",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener todas las personas mostrando trabajo",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/alternativa?mostrarTrabajando=false",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            "alternativa"
+          ],
+          "query": [
+            {
+              "key": "mostrarTrabajando",
+              "value": "false"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener una persona",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar una persona",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/personas/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "personas",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
