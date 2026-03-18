@@ -1,5 +1,6 @@
 package me.juanalbeticohf.apirest_basica_mysql.dto_persona;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PersonaDTOId {
+    @Schema(description = "Identificador único de la persona. Es un campo autogenerado por la base de datos y no puede ser nulo.",
+            example = "1",
+            accessMode = Schema.AccessMode.READ_ONLY)
     private Integer id;
     private String DNI;
     private String nombre;
