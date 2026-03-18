@@ -1,4 +1,4 @@
-package me.juanalbeticohf.apirest_basica_mysql;
+package me.juanalbeticohf.apirest_basica_mongodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
