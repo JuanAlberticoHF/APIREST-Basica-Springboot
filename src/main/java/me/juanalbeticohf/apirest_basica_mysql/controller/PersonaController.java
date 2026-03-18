@@ -1,5 +1,10 @@
 package me.juanalbeticohf.apirest_basica_mysql.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTO;
 import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTOId;
 import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTONoTrabajo;
@@ -14,52 +19,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controlador REST para gestionar las operaciones CRUD de la entidad Persona. <br>
- * Proporciona endpoints para crear, leer, actualizar y eliminar personas en la base de datos. <br>
- * Utiliza el servicio {@code PersonaService} para interactuar con la capa de negocio y la base de datos. <br>
- * Cada endpoint devuelve una respuesta HTTP adecuada según el resultado de la operación, incluyendo códigos de estado y
- * objetos DTO para representar los datos de las personas.
- * Implementa la anotación {@code @RestController} y {@code @RequestMapping}.
- * <li>URL base -> <a href="http://localhost:8082/personas/">http://localhost:8082/personas/</a></li>
+ * Controlador REST para gestionar las operaciones CRUD de la entidad Persona.
+ * Utiliza el servicio {@code PersonaService} para interactuar con la capa de negocio y la base de datos.
  *
  * @author JuanAlbeticoHF
  * @version 1.0
- * @since 1.0
- * @see me.juanalbeticohf.apirest_basica_mysql.service.PersonaServiceImpl
  */
 @RestController
 @RequestMapping("personas")
+@Tag(name = "Gestor de Personas", description = "Endpoints para gestionar las operaciones CRUD de la entidad Persona")
 public class PersonaController {
 
-    /**
-     * Inyeccion de dependencias del servicio PersonaServiceImpl para acceder a los metodos de la capa de negocio relacionados con la entidad Persona.
-     */
     @Autowired
     private PersonaServiceImpl personaServiceImpl;
 
-    /**
-     * ENDPOINT para añadir una persona a la BD.
-     * <li>URL -> <a href="http://localhost:8082/addPersona">http://localhost:8082/personas/addPersona</a></li>
-     * @param persona La persona a añadir a la base de datos.
-     * @return La respuesta HTTP con codigo y el objeto añadido a la base de datos, incluyendo su id generado automaticamente. Si la persona ya existe en la base de datos, devuelve un código de estado HTTP 409 (Conflict) sin cuerpo en la respuesta.
-     */
+    @Operation(summary = "Añadir una persona", description = "Registra una nueva persona en la base de datos. Retorna el objeto creado con su ID generado automáticamente.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Persona creada exitosamente"),
+            @ApiResponse(responseCode = "409", description = "Conflicto: La persona ya existe en la base de datos")
+    })
     @PostMapping("/addPersona")
-    public ResponseEntity<PersonaDTOId> addPersona(@RequestBody Persona persona){
+    public ResponseEntity<PersonaDTOId> addPersona(
+            @Parameter(description = "Datos de la persona a registrar", required = true)
+            @RequestBody Persona persona) {
         // Si la persona existe en la BD no se añade.
         if (personaServiceImpl.existsPersona(persona)){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
-            Persona personaRes = personaServiceImpl.addPersona(persona); // Añadimos el nuevo registro a la BD
-            PersonaDTOId personaDTOId = new PersonaDTOId(personaRes); // Construimos el objeto a devolver.
+            Persona personaRes = personaServiceImpl.addPersona(persona);
+            PersonaDTOId personaDTOId = new PersonaDTOId(personaRes);
             return new ResponseEntity<>(personaDTOId, HttpStatus.CREATED);
         }
     }
 
-    /**
-     * ENDPOINT para obtener todas las personas de la BD.
-     * <li>URL -> <a href="http://localhost:8082/personas/">http://localhost:8082/personas/</a></li>
-     * @return La respuesta HTTP con codigo y el listado de objeto, sin mostrar el campo "estaTrabajando" en la respuesta.
-     */
+    @Operation(summary = "Obtener todas las personas (Datos básicos)", description = "Devuelve un listado completo de todas las personas registradas, excluyendo el campo 'estaTrabajando' por defecto.")
+    @ApiResponse(responseCode = "200", description = "Listado de personas recuperado exitosamente")
     @GetMapping("/")
     public ResponseEntity<List<Object>> allPersonas(){
         List<Object> personaRes = new ArrayList<>();
@@ -67,14 +61,12 @@ public class PersonaController {
         return ResponseEntity.ok(personaRes);
     }
 
-    /**
-     * ENDPOINT para obtener todas las personas de la BD y mostrar si están trabajando.
-     * <li>URL -> <a href="http://localhost:8082/personas/?mostrarTrabajando=boolean">http://localhost:8082/personas/?mostrarTrabajando=boolean</a></li>
-     * @param mostrarTrabajando Parámetro booleano que indica si se desea mostrar el campo "estaTrabajando" en la respuesta. Si es {@code true}, se devuelve un listado de objetos PersonaDTO con todos los datos, incluyendo el campo "estaTrabajando". Si es {@code false}, se devuelve un listado de objetos PersonaDTONoTrabajo sin el campo "estaTrabajando".
-     * @return La respuesta HTTP con codigo y el listado de objeto, dependiendo del valor del parámetro "mostrarTrabajando".
-     */
+    @Operation(summary = "Obtener todas las personas (Con filtro de trabajo)", description = "Devuelve el listado de personas permitiendo elegir si se muestra o no la información laboral mediante un parámetro.")
+    @ApiResponse(responseCode = "200", description = "Listado de personas recuperado según el filtro aplicado")
     @GetMapping("/alternativa")
-    public ResponseEntity<List<Object>> allPersonas(@RequestParam boolean mostrarTrabajando){
+    public ResponseEntity<List<Object>> allPersonas(
+            @Parameter(description = "Si es 'true', incluye el campo 'estaTrabajando' en la respuesta. Si es 'false', lo omite.", example = "true", required = true)
+            @RequestParam boolean mostrarTrabajando){
         List<Object> personaRes = new ArrayList<>();
         if (mostrarTrabajando){
             personaServiceImpl.getAllPersonas().forEach(persona -> personaRes.add(new PersonaDTO(persona)));
@@ -85,16 +77,16 @@ public class PersonaController {
         return ResponseEntity.ok(personaRes);
     }
 
-    /**
-     * ENDPOINT para obtener una persona base a su identificador sobre la BD.
-     * <li>URL -> <a href="http://localhost:8082/personas/{id}">http://localhost:8082/personas/{id}</a></li>
-     * @param id El identificador de la persona a obtener de la base de datos.
-     * @return La respuesta HTTP con codigo y el objeto persona con dicho identificador en la base de datos. <br>
-     * Si no hay personas, devuelve un código de estado HTTP 404 (Not Found) sin cuerpo en la respuesta. <br>
-     * Si el identificador es nulo, devuelve un código de estado HTTP 400 (Bad Request) sin cuerpo en la respuesta.
-     */
+    @Operation(summary = "Obtener persona por ID", description = "Busca y devuelve los detalles de una persona específica utilizando su identificador único.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Persona encontrada"),
+            @ApiResponse(responseCode = "400", description = "El ID proporcionado es nulo o inválido"),
+            @ApiResponse(responseCode = "404", description = "No existe ninguna persona con ese ID")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaDTO> getPersona(@PathVariable Integer id){
+    public ResponseEntity<PersonaDTO> getPersona(
+            @Parameter(description = "Identificador de la persona", example = "1", required = true)
+            @PathVariable Integer id){
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else  {
@@ -107,47 +99,50 @@ public class PersonaController {
     }
 
     /**
-     * ENDPOINT para actualizar una persona existente en la BD por nuevos datos.
-     * <li>URL -> <a href="http://localhost:8082/personas/{id}">http://localhost:8082/personas/{id}</a></li>
-     * @param id El identificador de la persona a actualizar en la base de datos. Parametro por URL.
-     * @param persona El objeto de tipo Persona con los datos actualizados.
-     * @return La respuesta HTTP con codigo y el objeto persona actualizado en la base de datos. <br>
-     * Si el identificador es nulo, devuelve un código de estado HTTP 400 (Bad Request) sin cuerpo en la respuesta. <br>
-     * Si el id de la persona es distinto al id de la URL se produce un conflicto, devuelve un código de estado HTTP 409 (Conflict) sin cuerpo en la respuesta. <br>
-     * Si el id no existe en la BD no se puede actualizar, devuelve un código de estado HTTP 404 (Not Found) sin cuerpo en la respuesta.
+     * Lógica de actualización: Valida que el ID de la ruta coincida con el ID del body (si se proporciona) para evitar inconsistencias.
      */
+    @Operation(summary = "Actualizar persona", description = "Sobrescribe los datos de una persona existente en la base de datos basándose en su ID.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Persona actualizada con éxito"),
+            @ApiResponse(responseCode = "400", description = "El ID proporcionado en la URL es nulo"),
+            @ApiResponse(responseCode = "404", description = "El ID a actualizar no existe en la base de datos"),
+            @ApiResponse(responseCode = "409", description = "Conflicto: El ID de la URL y el ID del cuerpo de la petición no coinciden")
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<PersonaDTO> updatePersona(@PathVariable Integer id, @RequestBody Persona persona){
-        if (id == null) { // Si el id es nulo la petición esta mal hecha
+    public ResponseEntity<PersonaDTO> updatePersona(
+            @Parameter(description = "ID de la persona a actualizar", example = "1", required = true)
+            @PathVariable Integer id,
+            @Parameter(description = "Objeto con los nuevos datos de la persona", required = true)
+            @RequestBody Persona persona){
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if (persona.getId() != null && !persona.getId().equals(id)) { // Si el id de la persona es distinto al id de la URL se produce un conflicto
+        } else if (persona.getId() != null && !persona.getId().equals(id)) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } else if (personaServiceImpl.getPersonaById(id) == null) { // Si el id no existe en la BD no se puede actualizar
+        } else if (personaServiceImpl.getPersonaById(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else { // Si el parametro id no es nulo, coinciden los id o la persona no tiene id y si existe en la BD
+        } else {
             persona.setId(id);
             PersonaDTO personaRes = new PersonaDTO(personaServiceImpl.updatePersona(persona));
             return ResponseEntity.ok(personaRes);
         }
     }
 
-    /**
-     * ENDPOINT para eliminar una persona existente en la BD base a su id.
-     * <li>URL -> <a href="http://localhost:8082/personas/{id}">http://localhost:8082/personas/{id}</a></li>
-     * @param id El identificador de la persona a eliminar de la base de datos.
-     * @return La respuesta HTTP con codigo y un booleano indicando si la persona se ha eliminado correctamente, es decir, si no existe en la BD. <br>
-     * Si el identificador es nulo, devuelve un código de estado HTTP 400 (Bad Request) sin cuerpo en la respuesta. <br>
-     * Si el id no existe en la BD no se puede eliminar, devuelve un código de estado HTTP 404 (Not Found) sin cuerpo en la respuesta.
-     */
+    @Operation(summary = "Eliminar persona", description = "Borra físicamente a una persona de la base de datos utilizando su ID.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Persona eliminada exitosamente (Retorna 'true')"),
+            @ApiResponse(responseCode = "400", description = "El ID proporcionado es nulo"),
+            @ApiResponse(responseCode = "404", description = "La persona a eliminar no existe")
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deletePersona(@PathVariable Integer id){
-        if (id == null) { // Si el id es nulo la petición esta mal hecha
+    public ResponseEntity<Boolean> deletePersona(
+            @Parameter(description = "ID de la persona a eliminar", example = "1", required = true)
+            @PathVariable Integer id){
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if (personaServiceImpl.getPersonaById(id) == null) { // Si el id no existe
+        } else if (personaServiceImpl.getPersonaById(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else { // Si el id no es nulo y existe en la BD
+        } else {
             personaServiceImpl.deletePersona(id);
-            // Devolvemos un booleano indicando si la persona se ha eliminado correctamente, es decir, si no existe en la BD
             return ResponseEntity.ok(personaServiceImpl.getPersonaById(id) == null);
         }
     }
