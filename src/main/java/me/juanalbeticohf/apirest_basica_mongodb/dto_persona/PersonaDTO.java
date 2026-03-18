@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class PersonaDTO {
     @Schema(description = "Número de Documento Nacional de Identidad (DNI) de la persona. Es un campo único y no puede ser nulo.",
             example = "12345678A")
-    private String DNI;
+    private String dni;
     @Schema(description = "Nombre de la persona. Es un campo obligatorio y no puede ser nulo.",
             example = "Juan")
     private String nombre;
@@ -46,7 +46,7 @@ public class PersonaDTO {
      * @param persona Objeto de tipo Persona del cual se extraerán los datos para crear el DTO.
      */
     public PersonaDTO (Persona persona) {
-        this.DNI = persona.getDNI();
+        this.dni = persona.getDni();
         this.nombre = persona.getNombre();
         this.apellido = persona.getApellidos();
         this.edad = persona.getEdad();

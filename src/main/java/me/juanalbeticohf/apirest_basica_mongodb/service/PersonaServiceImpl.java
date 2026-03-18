@@ -14,8 +14,8 @@ import java.util.List;
  * @author JuanAlbeticoHF
  * @version 1.0
  * @since 1.0
- * @see me.juanalbeticohf.apirest_basica_mysql.repository.IPersonaRepository
- * @see me.juanalbeticohf.apirest_basica_mysql.service.PersonaService
+ * @see IPersonaRepository
+ * @see PersonaService
  */
 @Service
 public class PersonaServiceImpl implements PersonaService {
@@ -45,7 +45,7 @@ public class PersonaServiceImpl implements PersonaService {
      * {@inheritDoc}
      */
     @Override
-    public Persona getPersonaById(Integer id) {
+    public Persona getPersonaById(String id) {
         return personaRepository.findById(id).orElse(null);
     }
 
@@ -63,7 +63,7 @@ public class PersonaServiceImpl implements PersonaService {
      * Detalle implementación: <br>
      * Primero busca si el identificador "id" de la persona no es nulo y verifica su existencia en la base de datos
      * utilizando el métod0 {@code existsById} del repositorio. Si el "id" es nulo, entonces verifica si el campo "DNI"
-     * no es nulo y utiliza el métod0 {@code existsByDNI} del repositorio para verificar su existencia. Si ambos campos
+     * no es nulo y utiliza el métod0 {@code existsByDni} del repositorio para verificar su existencia. Si ambos campos
      * son nulos, devuelve {@code false}.
      * </p>
      */
@@ -71,8 +71,8 @@ public class PersonaServiceImpl implements PersonaService {
     public boolean existsPersona(Persona persona) {
         if (persona.getId() != null) {
             return personaRepository.existsById(persona.getId());
-        } else if (persona.getDNI() != null) {
-            return personaRepository.existsByDNI(persona.getDNI());
+        } else if (persona.getDni() != null) {
+            return personaRepository.existsByDni(persona.getDni());
         }
         return false;
     }
@@ -81,7 +81,7 @@ public class PersonaServiceImpl implements PersonaService {
      * {@inheritDoc}
      */
     @Override
-    public void deletePersona(Integer id) {
+    public void deletePersona(String id) {
         personaRepository.deleteById(id);
     }
 }

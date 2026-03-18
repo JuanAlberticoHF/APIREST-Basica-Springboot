@@ -25,8 +25,8 @@ public class PersonaDTOId {
     @Schema(description = "Identificador único de la persona. Es un campo autogenerado por la base de datos y no puede ser nulo.",
             example = "1",
             accessMode = Schema.AccessMode.READ_ONLY)
-    private Integer id;
-    private String DNI;
+    private String id;
+    private String dni;
     private String nombre;
     private String apellido;
     private Integer edad;
@@ -39,7 +39,7 @@ public class PersonaDTOId {
      */
     public PersonaDTOId(Persona persona) {
         this.id = persona.getId();
-        this.DNI = persona.getDNI();
+        this.dni = persona.getDni();
         this.nombre = persona.getNombre();
         this.apellido = persona.getApellidos();
         this.edad = persona.getEdad();
