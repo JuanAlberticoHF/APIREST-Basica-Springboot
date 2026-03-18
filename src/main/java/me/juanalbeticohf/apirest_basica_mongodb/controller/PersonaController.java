@@ -85,7 +85,7 @@ public class PersonaController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<PersonaDTO> getPersona(
-            @Parameter(description = "Identificador de la persona", example = "1", required = true)
+            @Parameter(description = "Identificador de la persona", example = "1a2b3c4d5e6f7g8h9i10j11k", required = true)
             @PathVariable String id){
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -110,7 +110,7 @@ public class PersonaController {
     })
     @PutMapping("/{id}")
     public ResponseEntity<PersonaDTO> updatePersona(
-            @Parameter(description = "ID de la persona a actualizar", example = "1", required = true)
+            @Parameter(description = "ID de la persona a actualizar", example = "1a2b3c4d5e6f7g8h9i10j11k", required = true)
             @PathVariable String id,
             @Parameter(description = "Objeto con los nuevos datos de la persona", required = true)
             @RequestBody Persona persona){
@@ -135,7 +135,7 @@ public class PersonaController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deletePersona(
-            @Parameter(description = "ID de la persona a eliminar", example = "1", required = true)
+            @Parameter(description = "ID de la persona a eliminar", example = "1a2b3c4d5e6f7g8h9i10j11k", required = true)
             @PathVariable String id){
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
