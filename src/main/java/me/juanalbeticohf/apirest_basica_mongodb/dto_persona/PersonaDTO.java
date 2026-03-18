@@ -1,11 +1,11 @@
-package me.juanalbeticohf.apirest_basica_mysql.dto_persona;
+package me.juanalbeticohf.apirest_basica_mongodb.dto_persona;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
+import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
 
 import java.time.LocalDate;
 

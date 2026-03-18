@@ -1,4 +1,4 @@
-package me.juanalbeticohf.apirest_basica_mysql.entity;
+package me.juanalbeticohf.apirest_basica_mongodb.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

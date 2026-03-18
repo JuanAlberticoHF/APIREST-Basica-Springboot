@@ -1,7 +1,7 @@
-package me.juanalbeticohf.apirest_basica_mysql.service;
+package me.juanalbeticohf.apirest_basica_mongodb.service;
 
-import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
-import me.juanalbeticohf.apirest_basica_mysql.repository.IPersonaRepository;
+import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
+import me.juanalbeticohf.apirest_basica_mongodb.repository.IPersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
