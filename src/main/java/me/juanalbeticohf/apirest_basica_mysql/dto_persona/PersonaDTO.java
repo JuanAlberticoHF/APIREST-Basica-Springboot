@@ -1,5 +1,6 @@
 package me.juanalbeticohf.apirest_basica_mysql.dto_persona;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,23 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PersonaDTO {
+    @Schema(description = "Número de Documento Nacional de Identidad (DNI) de la persona. Es un campo único y no puede ser nulo.",
+            example = "12345678A")
     private String DNI;
+    @Schema(description = "Nombre de la persona. Es un campo obligatorio y no puede ser nulo.",
+            example = "Juan")
     private String nombre;
+    @Schema(description = "Apellido de la persona. Es un campo obligatorio y no puede ser nulo.",
+            example = "Pérez")
     private String apellido;
+    @Schema(description = "Edad de la persona. Es un campo obligatorio y no puede ser nulo.",
+            example = "30")
     private Integer edad;
+    @Schema(description = "Fecha de nacimiento de la persona. Es un campo obligatorio y no puede ser nulo.",
+            example = "1994-05-15")
     private LocalDate fechaNacimiento;
+    @Schema(description = "Indica si la persona esta trabajando actualmente. Es un campo opcional.",
+            example = "true")
     private Boolean estaTrabajando;
 
     /**
