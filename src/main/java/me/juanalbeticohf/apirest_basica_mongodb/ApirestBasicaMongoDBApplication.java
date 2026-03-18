@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApirestBasicaMysqlApplication {
+public class ApirestBasicaMongoDBApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApirestBasicaMysqlApplication.class, args);
+		SpringApplication.run(ApirestBasicaMongoDBApplication.class, args);
 	}
 
 }
