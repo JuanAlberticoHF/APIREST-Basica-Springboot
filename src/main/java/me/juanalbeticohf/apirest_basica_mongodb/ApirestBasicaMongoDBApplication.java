@@ -2,6 +2,7 @@ package me.juanalbeticohf.apirest_basica_mongodb;
 
 import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
 import me.juanalbeticohf.apirest_basica_mongodb.service.PersonaService;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ApirestBasicaMongoDBApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String @NonNull ... args) {
 		menu();
 	}
 
@@ -61,14 +62,11 @@ public class ApirestBasicaMongoDBApplication implements CommandLineRunner {
 						logger.info("Saliendo del programa...");
 						return;
 					}
-					default -> {
-						logger.warn("Opción no válida. Por favor, elige una opción del menú.");
-					}
+					default -> logger.warn("Opción no válida. Por favor, elige una opción del menú.");
 				}
 			} catch (NumberFormatException e) {
 				logger.warn("Entrada no válida. Por favor, introduce un número.");
-				continue;
-			}
+            }
 		}
 	}
 
