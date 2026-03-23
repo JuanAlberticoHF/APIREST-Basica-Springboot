@@ -28,7 +28,7 @@ public class PersonaDTOId {
     private String id;
     private String dni;
     private String nombre;
-    private String apellido;
+    private String apellidos;
     private Integer edad;
     private LocalDate fechaNacimiento;
     private Boolean estaTrabajando;
@@ -41,7 +41,7 @@ public class PersonaDTOId {
         this.id = persona.getId();
         this.dni = persona.getDni();
         this.nombre = persona.getNombre();
-        this.apellido = persona.getApellidos();
+        this.apellidos = persona.getApellidos();
         this.edad = persona.getEdad();
         this.fechaNacimiento = persona.getFechaNacimiento();
         this.estaTrabajando = persona.getEstaTrabajando();

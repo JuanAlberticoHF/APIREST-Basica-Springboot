@@ -30,7 +30,7 @@ public class PersonaDTO {
     private String nombre;
     @Schema(description = "Apellido de la persona. Es un campo obligatorio y no puede ser nulo.",
             example = "Pérez")
-    private String apellido;
+    private String apellidos;
     @Schema(description = "Edad de la persona. Es un campo obligatorio y no puede ser nulo.",
             example = "30")
     private Integer edad;
@@ -48,7 +48,7 @@ public class PersonaDTO {
     public PersonaDTO (Persona persona) {
         this.dni = persona.getDni();
         this.nombre = persona.getNombre();
-        this.apellido = persona.getApellidos();
+        this.apellidos = persona.getApellidos();
         this.edad = persona.getEdad();
         this.fechaNacimiento = persona.getFechaNacimiento();
         this.estaTrabajando = persona.getEstaTrabajando();
