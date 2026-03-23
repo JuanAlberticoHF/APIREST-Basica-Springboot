@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * Implementa las anotaciones {@code @NoArgsConstructor}, {@code @AllArgsContructor}, {@code @Getter} y {@code @Setter}
  * de Lombok para generar automáticamente los constructores, getters y setters.
  * @author JuanAlbeticoHF
- * @version 1.0
+ * @version 1.0.1
  * @since 1.0
  */
 @NoArgsConstructor
