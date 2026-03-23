@@ -23,7 +23,8 @@ import java.util.List;
  * Utiliza el servicio {@code PersonaService} para interactuar con la capa de negocio y la base de datos.
  *
  * @author JuanAlbeticoHF
- * @version 1.0
+ * @version 1.0.1
+ * @since 1.0
  */
 @RestController
 @RequestMapping("personas")
@@ -57,7 +58,7 @@ public class PersonaController {
     @GetMapping("/")
     public ResponseEntity<List<Object>> allPersonas(){
         List<Object> personaRes = new ArrayList<>();
-        personaServiceImpl.getAllPersonas().forEach(persona -> personaRes.add(new PersonaDTONoTrabajo(persona)));
+        personaServiceImpl.getAllPersonas().forEach(persona -> personaRes.add(new PersonaDTOId(persona)));
         return ResponseEntity.ok(personaRes);
     }
 
@@ -84,7 +85,7 @@ public class PersonaController {
             @ApiResponse(responseCode = "404", description = "No existe ninguna persona con ese ID")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaDTO> getPersona(
+    public ResponseEntity<PersonaDTOId> getPersona(
             @Parameter(description = "Identificador de la persona", example = "1a2b3c4d5e6f7g8h9i10j11k", required = true)
             @PathVariable String id){
         if (id == null) {
@@ -94,7 +95,7 @@ public class PersonaController {
             if (persona == null){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return ResponseEntity.ok(new PersonaDTO(persona));
+            return ResponseEntity.ok(new PersonaDTOId(persona));
         }
     }
 
