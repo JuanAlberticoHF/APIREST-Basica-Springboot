@@ -1,0 +1,15 @@
+version: '3.8'
+services: # Definimos los servicios que componen nuestra aplicación. En este caso, solo tenemos un servicio para MongoDB.
+  apirest-mongo-docker: # Definimos el servicio para MongoDB, que se llamará "apirest-mongo-docker".
+    image: mongo # Utilizamos la imagen oficial de MongoDB. https://hub.docker.com/_/mongo
+    ports: # Defino el mapeo de puertos para acceder a MongoDB desde la maquina alfitrion (host).
+      - "27018:27017" # El primer puerto (27018) es el puerto del host, y el segundo puerto (27017) es el puerto del contenedor donde MongoDB escucha por defecto.
+    environment: # Definimos las variables de entorno para configurar el usuario administrador de MongoDB.
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes: # Definimos los volúmenes para persistir los datos de MongoDB y montar el script de inicialización.
+      - datos_mongo:/data/db # Montamos un volumen llamado 'datos_mongo' para almacenar los datos de MongoDB en el host, lo que permite que los datos persistan incluso si el contenedor se detiene o se elimina.
+      - "./init.js:/docker-entrypoint-initdb.d/init.js" # Montamos el script de inicialización para crear la base de datos y la colección al iniciar el contenedor.
+
+volumes: # Definimos los volúmenes que vamos a utilizar para persistir los datos de MongoDB.
+  datos_mongo: # Este volumen se utiliza para almacenar los datos de MongoDB en el host, lo que permite que los datos persistan incluso si el contenedor se detiene o se elimina.
