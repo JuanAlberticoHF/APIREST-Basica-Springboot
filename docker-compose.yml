@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.8' # Versión del formato del archivo Compose
 services: # Definimos los servicios que componen nuestra aplicación. En este caso, solo tenemos un servicio para MongoDB.
   apirest-mongo-docker: # Definimos el servicio para MongoDB, que se llamará "apirest-mongo-docker".
     image: mongo # Utilizamos la imagen oficial de MongoDB. https://hub.docker.com/_/mongo
@@ -10,6 +10,14 @@ services: # Definimos los servicios que componen nuestra aplicación. En este ca
     volumes: # Definimos los volúmenes para persistir los datos de MongoDB y montar el script de inicialización.
       - datos_mongo:/data/db # Montamos un volumen llamado 'datos_mongo' para almacenar los datos de MongoDB en el host, lo que permite que los datos persistan incluso si el contenedor se detiene o se elimina.
       - "./init.js:/docker-entrypoint-initdb.d/init.js" # Montamos el script de inicialización para crear la base de datos y la colección al iniciar el contenedor.
+  apirest-basica-mongodb: # Definimos el servicio para la aplicación de SpringBoot.
+    build: . # Construimos la imagen de Docker para la aplicación de SpringBoot utilizando el Dockerfile ubicado en el directorio actual.
+    ports: # Definimos el mapeo de puertos para acceder a la aplicación de SpringBoot desde la máquina anfitriona (host).
+      - "8082:8082" # El primer puerto (8082) es el puerto del host, y el segundo puerto (8082) es el puerto del contenedor donde la aplicación de SpringBoot escucha por defecto.
+    links: # Establecemos un enlace entre el servicio de la aplicación de SpringBoot y el servicio de MongoDB, lo que permite que la aplicación de SpringBoot se comunique con MongoDB utilizando el nombre del servicio como hostname.
+      - apirest-mongo-docker
+    depends_on: # Especificamos que este servicio depende del servicio de MongoDB, lo que garantiza que MongoDB se inicie antes que la aplicación de SpringBoot.
+      - apirest-mongo-docker
 
 volumes: # Definimos los volúmenes que vamos a utilizar para persistir los datos de MongoDB.
   datos_mongo: # Este volumen se utiliza para almacenar los datos de MongoDB en el host, lo que permite que los datos persistan incluso si el contenedor se detiene o se elimina.
