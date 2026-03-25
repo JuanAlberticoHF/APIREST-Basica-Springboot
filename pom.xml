@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>me.juanalbeticohf</groupId>
 	<artifactId>apirest-basica-mongodb</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.5.1-SNAPSHOT</version>
 	<name>apirest-basica-mongodb</name>
 	<description>Proyecto de practica clonado para cambiar la base de datos de MySQL a MongoDB</description>
 	<url/>
