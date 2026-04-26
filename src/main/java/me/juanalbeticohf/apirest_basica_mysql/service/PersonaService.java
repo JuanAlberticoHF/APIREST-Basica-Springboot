@@ -33,7 +33,7 @@ public interface PersonaService {
      * @return Devuelve la persona con dicho identificador en la base de datos. Si no hay personas,
      * devuelve una {@code null}.
      */
-    Persona getPersonaById(String id);
+    Persona getPersonaById(Long id);
 
     /**
      * Actualiza un objeto persona en la base de datos base a sus datos.
@@ -53,5 +53,5 @@ public interface PersonaService {
      * Eliminar una persona de la base de datos base a su identificador.
      * @param id El identificador de la persona a eliminar de la base de datos.
      */
-    void deletePersona(String id);
+    void deletePersona(Long id);
 }

@@ -1,7 +1,5 @@
 package me.juanalbeticohf.apirest_basica_mysql.service;
 
-import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
-import me.juanalbeticohf.apirest_basica_mongodb.repository.IPersonaRepository;
 import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
 import me.juanalbeticohf.apirest_basica_mysql.repository.IPersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public Persona getPersonaById(String id) {
         return personaRepository.findById(id).orElse(null);
+    public Persona getPersonaById(Long id) {
     }
 
     /**
@@ -84,6 +83,7 @@ public class PersonaServiceImpl implements PersonaService {
      */
     @Override
     public void deletePersona(String id) {
+    public void deletePersona(Long id) {
         personaRepository.deleteById(id);
     }
 }
