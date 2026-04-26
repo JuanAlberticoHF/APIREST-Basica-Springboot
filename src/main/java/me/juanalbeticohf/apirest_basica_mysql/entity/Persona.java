@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * @version 1.0
  * @since 1.0
  */
-@Document(collection = "prac_personas")
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -26,10 +26,11 @@ import java.time.LocalDate;
 @Table(name = "personas")
 public class Persona {
     /**
-     * Identificador único de la persona.
+     * Identificador único de la persona. Es un campo autogenerado por la base de datos y no puede ser nulo.
      */
+//    @NotNull(message = "El Id no debe ser nulo.")
+    @Positive(message = "El Id debe ser un numero entero positivo.")
     @Id
-    private String id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
@@ -37,19 +38,29 @@ public class Persona {
     /**
      * Número de Documento Nacional de Identidad (DNI) de la persona. Es un campo único y no puede ser nulo.
      */
+    @NotBlank(message = "El DNI no debe ser nulo ni estar vacio.")
+    @Size(min = 9, max = 9, message = "La logintud minima y maxima de un DNI debe ser 9.")
     @Column(unique = true, nullable = false)
     private String dni;
 
+    @NotBlank(message = "El Nombre no debe ser nulo ni estar vacio.")
+    @Size(max = 50, message = "El Nombre debe tener una longitud maxima de 50 caractes.")
     @Column(nullable = false, length = 50)
     private String nombre;
 
+    @NotBlank(message = "El Apellido no debe ser nulo ni estar vacio.")
+    @Size(max = 50, message = "El Apellido debe tener una longitud maxima de 100 caractes.")
     @Column(nullable = false, length = 100)
     private String apellidos;
 
+    @NotNull(message = "La Edad no debe ser nula.")
+    @Positive(message = "La Edad debe ser un numero positivo")
+    @Max(value = 99, message = "La Edad maxima es de 99 años.")
     @Column(nullable = false)
     private Integer edad;
 
-    @Field(name = "fecha_nac")
+    @NotNull(message = "La Fecha de Nacimiento no debe ser nula")
+    @Past(message = "La Fecha de Nacimiento debe ser un valor anterior a hoy")
     @Column(name = "fecha_nac", nullable = false)
     private LocalDate fechaNacimiento;
 
@@ -58,4 +69,14 @@ public class Persona {
      */
     @Column(name = "esta_trabajando")
     private Boolean estaTrabajando;
+
+    public Persona(PersonaDTO personaDTO) {
+        this.id = null;
+        this.dni = personaDTO.getDni();
+        this.nombre = personaDTO.getNombre();
+        this.apellidos = personaDTO.getApellidos();
+        this.edad = personaDTO.getEdad();
+        this.fechaNacimiento = personaDTO.getFechaNacimiento();
+        this.estaTrabajando = false;
+    }
 }

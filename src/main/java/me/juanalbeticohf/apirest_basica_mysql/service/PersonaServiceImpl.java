@@ -1,6 +1,8 @@
 package me.juanalbeticohf.apirest_basica_mysql.service;
 
 import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
+import me.juanalbeticohf.apirest_basica_mysql.exception.custom_exceptions.PersonaAlreadyExistsException;
+import me.juanalbeticohf.apirest_basica_mysql.exception.custom_exceptions.PersonaNotFoundException;
 import me.juanalbeticohf.apirest_basica_mysql.repository.IPersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
  * Implementa la logica de negocio de los metodos definidos la interfaz PersonaService, la inyección de dependencias del
  * IPersonaRepository y la anotacion {@code @Service} para declararlo como un bean de servicio.
  * @author JuanAlbeticoHF
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see IPersonaRepository
  * @see PersonaService
@@ -30,6 +32,9 @@ public class PersonaServiceImpl implements PersonaService {
      */
     @Override
     public Persona addPersona(Persona persona) {
+        if (existsPersona(persona)) {
+            throw new PersonaAlreadyExistsException("La persona con dni '" + persona.getDni() + "' ya existe.");
+        }
         return personaRepository.save(persona);
     }
 
@@ -45,16 +50,20 @@ public class PersonaServiceImpl implements PersonaService {
      * {@inheritDoc}
      */
     @Override
-    public Persona getPersonaById(String id) {
-        return personaRepository.findById(id).orElse(null);
     public Persona getPersonaById(Long id) {
+        return personaRepository.findById(id).orElseThrow(() ->
+                new PersonaNotFoundException("No se encontró la persona con id '" + id + "'.")
+        );
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Persona updatePersona(Persona persona) {
+    public Persona updatePersona(Long id, Persona persona) {
+        personaRepository.findById(id).orElseThrow(() ->
+                new PersonaNotFoundException("No se encontró la persona con id '" + id + "'.")
+        );
         return personaRepository.save(persona);
     }
 
@@ -82,8 +91,10 @@ public class PersonaServiceImpl implements PersonaService {
      * {@inheritDoc}
      */
     @Override
-    public void deletePersona(String id) {
     public void deletePersona(Long id) {
+        personaRepository.findById(id).orElseThrow(() ->
+                new PersonaNotFoundException("No se encontró la persona con id '" + id + "'.")
+        );
         personaRepository.deleteById(id);
     }
 }

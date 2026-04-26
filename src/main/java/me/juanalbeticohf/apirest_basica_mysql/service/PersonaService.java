@@ -37,10 +37,11 @@ public interface PersonaService {
 
     /**
      * Actualiza un objeto persona en la base de datos base a sus datos.
-     * @param persona El objeto de tipo Persona con los datos actualizados. El campo "id" debe contener el identificador de la persona que se desea actualizar.
+     * @param Id El identificador de la persona que se desea actualizar en la base de datos.
+     * @param persona El objeto de tipo Persona con los datos actualizados.
      * @return Devuelve la persona con los datos actualizados. Si no existe una persona con el identificador proporcionado, devuelve {@code null}.
      */
-    Persona updatePersona(Persona persona);
+    Persona updatePersona(Long Id, Persona persona);
 
     /**
      * Verifica si existe una persona en la base de datos base a sus datos.
