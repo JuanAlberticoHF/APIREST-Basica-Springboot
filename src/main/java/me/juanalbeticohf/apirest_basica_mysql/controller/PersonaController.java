@@ -1,4 +1,4 @@
-package me.juanalbeticohf.apirest_basica_mongodb.controller;
+package me.juanalbeticohf.apirest_basica_mysql.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -10,6 +10,11 @@ import me.juanalbeticohf.apirest_basica_mongodb.dto_persona.PersonaDTOId;
 import me.juanalbeticohf.apirest_basica_mongodb.dto_persona.PersonaDTONoTrabajo;
 import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
 import me.juanalbeticohf.apirest_basica_mongodb.service.PersonaServiceImpl;
+import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTO;
+import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTOId;
+import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTONoTrabajo;
+import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
+import me.juanalbeticohf.apirest_basica_mysql.service.PersonaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

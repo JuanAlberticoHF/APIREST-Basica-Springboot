@@ -1,10 +1,8 @@
-package me.juanalbeticohf.apirest_basica_mongodb.entity;
+package me.juanalbeticohf.apirest_basica_mysql.entity;
 
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import me.juanalbeticohf.apirest_basica_mysql.dto_persona.PersonaDTO;
 
 import java.time.LocalDate;
 

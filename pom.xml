@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>me.juanalbeticohf</groupId>
-	<artifactId>apirest-basica-mongodb</artifactId>
-	<version>0.6.0-SNAPSHOT</version>
-	<name>apirest-basica-mongodb</name>
-	<description>Proyecto de practica clonado para cambiar la base de datos de MySQL a MongoDB</description>
+	<artifactId>apirest-basica-mysql2</artifactId>
+	<version>0.7.0-SNAPSHOT</version>
+	<name>apirest-basica-mysql2</name>
+	<description>Proyecto de practica</description>
 	<url/>
 	<licenses>
 		<license/>

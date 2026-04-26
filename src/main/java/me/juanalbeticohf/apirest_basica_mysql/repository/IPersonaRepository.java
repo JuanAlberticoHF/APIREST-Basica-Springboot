@@ -1,7 +1,8 @@
-package me.juanalbeticohf.apirest_basica_mongodb.repository;
+package me.juanalbeticohf.apirest_basica_mysql.repository;
 
 import me.juanalbeticohf.apirest_basica_mongodb.entity.Persona;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import me.juanalbeticohf.apirest_basica_mysql.entity.Persona;
 
 /**
  * Interfaz de repositorio para la entidad Persona.<br>

@@ -1,10 +1,10 @@
-package me.juanalbeticohf.apirest_basica_mongodb;
+package me.juanalbeticohf.apirest_basica_mysql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApirestBasicaMongoDBApplicationTests {
+class ApirestBasicaMySQLApplicationTests {
 
 	@Test
 	void contextLoads() {
