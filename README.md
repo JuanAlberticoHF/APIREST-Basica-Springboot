@@ -1,4 +1,4 @@
-# APIREST Basica MySQL
+# APIREST Basica Spring Boot
 Es un proyecto de prueba para practicar el desarrollo de una API RESTful en Spring Boot desde 0 con el objetivo de escalar el proyecto añadiendo funcionalidades, implementaciones y el uso de herramientas estandar para el desarrollo de APIs.
 
 ## ✅ OBJETIVOS CUMPLIDOS
