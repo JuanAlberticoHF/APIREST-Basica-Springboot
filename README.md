@@ -7,7 +7,7 @@ Objetivos de desarrollo cumplidos en orden y destacando los aspectos mas relevan
 > **TAG:** `API-RESTful-Basica-MySQL` [🏷️](https://github.com/JuanAlberticoHF/apirest-basica-mysql/tree/API-RESTful-Basica-MySQL)
   - MySQL como forma de persistencia creando la BD con script SQL desde MySQL Workbench.
   - Configuración del `application.properties`.
-  - Desarrollando una entidad, un repositorio, un servicio y un controlador.
+  - Desarrollo entidad, repositorio, servicio y controlador.
   - Definición de los DTOs.
   - Documentación con JavaDoc.
   - Pruebas API con Postman.
